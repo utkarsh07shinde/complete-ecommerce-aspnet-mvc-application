@@ -33,15 +33,15 @@
                                 @Html.DisplayFor(modelItem => actor.Bio)
                             </td>
                             <td class="align-middle text-center">
-                                <a class="btn btn-outline-primary" href="#">
+                                <a class="btn btn-outline-primary"  asp-controller="Actors" asp-action="Edit" asp-route-id="@actor.Id">
                                     <i class="bi bi-pencil-square"></i> Edit
                                 </a>
-                                <a class="btn btn-outline-info" href="#">
+                                <a class="btn btn-outline-info"  asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id">
                                     <i class="bi bi-eye"></i> Details
                                 </a>
-                                <button class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
-                                    <i class="bi bi-trash"></i> Delete
-                                </button>
+                                <a class="btn btn-outline-info"  asp-controller="Actors" asp-action="Delete" asp-route-id="@actor.Id">
+                                    <i class="bi bi-eye"></i> Delete
+                                </a>
                             </td>
                         </tr>
                     }
@@ -71,4 +71,8 @@
             </div>
         </div>
     </div>
+</div>
+
+<div style="position:fixed;right:25px;bottom:25px;" class="text-white">
+    <a asp-controller="Actors" asp-action="Create" class="btn btn-success"><i class="bi bi-plus-circle"></i>Add New</a>
 </div>

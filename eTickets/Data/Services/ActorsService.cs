@@ -1,5 +1,8 @@
 ﻿using eTickets.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace eTickets.Data.Services
 {
@@ -11,9 +14,11 @@ namespace eTickets.Data.Services
         {
             _context = context;
         }
+
         public void Add(Actor actor)
         {
-            throw new NotImplementedException();
+            _context.Actors.Add(actor);
+            _context.SaveChanges();
         }
 
         public void Delete(int id)
@@ -21,20 +26,36 @@ namespace eTickets.Data.Services
             throw new NotImplementedException();
         }
 
-        public async Task<IEnumerable<Actor>> GetAll()
+        public IEnumerable<Actor> GetAll()
         {
-            var result = await _context.Actors.ToListAsync();
+            var result = _context.Actors.ToList();
             return result;
         }
 
         public Actor GetById(int id)
         {
-            throw new NotImplementedException();
+            var result = _context.Actors.FirstOrDefault(n => n.Id == id);
+            return result;
         }
 
         public Actor Update(int id, Actor newActor)
         {
-            throw new NotImplementedException();
+            var existingActor = _context.Actors.Find(id);
+
+            if (existingActor == null)
+            {
+                // Handle the case where the actor with the given id is not found
+                return null;
+            }
+
+            existingActor.ProfilePictureURL = newActor.ProfilePictureURL;
+            existingActor.FullName = newActor.FullName;
+            existingActor.Bio = newActor.Bio;
+
+            _context.Update(existingActor);
+            _context.SaveChanges();
+
+            return existingActor;
         }
     }
 }

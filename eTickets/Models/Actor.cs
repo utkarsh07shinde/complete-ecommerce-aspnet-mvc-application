@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace eTickets.Models
 {
@@ -8,14 +9,18 @@ namespace eTickets.Models
         public int Id { get; set; }
 
         [Display(Name = "Profile Picture ")]
+        [Required(ErrorMessage = "Profile Picture required")]
         public string ProfilePictureURL { get; set; }
 
-        [Display(Name ="Full Name")]
+        [Display(Name = "Full Name")]
+        [Required(ErrorMessage = "Full Name required")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Full Name must be between 3 to 50 chars")]
         public string FullName { get; set; }
 
-        [Display(Name ="Biography")]
-        public string Bio { get; set;}
+        [Display(Name = "Biography")]
+        [Required(ErrorMessage = "Biography required")]
+        public string Bio { get; set; }
 
-        public List<Actor_Movie> Actor_Movies { get; set; }
+        public List<Actor_Movie> Actor_Movies { get; set; } = new List<Actor_Movie>();
     }
 }
