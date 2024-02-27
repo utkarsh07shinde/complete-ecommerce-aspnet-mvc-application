@@ -1,14 +1,15 @@
 ﻿using eTickets.Models;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace eTickets.Data.Services
 {
     public interface IActorService
     {
-        IEnumerable<Actor> GetAll();
-        Actor GetById(int id);
-        void Add(Actor actor);
-        void Delete(int id);
-        Actor Update(int id, Actor newActor);
+        Task<IEnumerable<Actor>> GetAllAsync();
+        Task<Actor> GetByIdAsync(int id);
+        Task AddAsync(Actor actor);
+        Task DeleteAsync(int id);
+        Task<Actor> UpdateAsync(int id, Actor newActor);
     }
 }

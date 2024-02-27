@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace eTickets.Data.Services
 {
@@ -15,32 +16,32 @@ namespace eTickets.Data.Services
             _context = context;
         }
 
-        public void Add(Actor actor)
+        public async Task AddAsync(Actor actor)
         {
             _context.Actors.Add(actor);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
-        public void Delete(int id)
+        public async Task DeleteAsync(int id)
         {
-            throw new NotImplementedException();
+            var result = await _context.Actors.FirstOrDefaultAsync(n => n.Id == id);
+             _context.Actors.Remove(result);
+            await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Actor> GetAll()
+        public async Task<IEnumerable<Actor>> GetAllAsync()
         {
-            var result = _context.Actors.ToList();
-            return result;
+            return await _context.Actors.ToListAsync();
         }
 
-        public Actor GetById(int id)
+        public async Task<Actor> GetByIdAsync(int id)
         {
-            var result = _context.Actors.FirstOrDefault(n => n.Id == id);
-            return result;
+            return await _context.Actors.FirstOrDefaultAsync(n => n.Id == id);
         }
 
-        public Actor Update(int id, Actor newActor)
+        public async Task<Actor> UpdateAsync(int id, Actor newActor)
         {
-            var existingActor = _context.Actors.Find(id);
+            var existingActor = await _context.Actors.FindAsync(id);
 
             if (existingActor == null)
             {
@@ -53,7 +54,7 @@ namespace eTickets.Data.Services
             existingActor.Bio = newActor.Bio;
 
             _context.Update(existingActor);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
             return existingActor;
         }
