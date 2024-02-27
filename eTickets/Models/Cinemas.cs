@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using eTickets.Data.Base;
+using System.ComponentModel.DataAnnotations;
 
 namespace eTickets.Models
 {
-    public class Cinemas
+    public class Cinemas : IEntityBase
     {
         [Key]
         public int Id { get; set; }
@@ -15,6 +16,6 @@ namespace eTickets.Models
         [Display(Name ="Description")]
         public string Description { get; set; }
 
-        public List<Movie> Movies { get; set; }
+        public List<Movie> Movies { get; set; } = new List<Movie>();
     }
 }

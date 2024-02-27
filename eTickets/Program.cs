@@ -13,7 +13,10 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     // Replace "DefaultConnection" with your actual connection string key
 });
 
+
 builder.Services.AddScoped<IActorService, ActorsService>();
+builder.Services.AddScoped<IProducerService, ProducerService>();
+builder.Services.AddScoped<ICinemaService, CinemaService>();
 
 var app = builder.Build();
 
